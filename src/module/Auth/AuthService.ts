@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { AuthRepository } from './AuthRepository.js';
+import { UserService } from '../User/UserService.js';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly AuthRepository: AuthRepository) {}
+  constructor(private readonly userService: UserService) {}
 
-  async create() {
-    return this.AuthRepository.create();
+  async register(input: { email: string; name: string }) {
+    return this.userService.register(input);
   }
 }

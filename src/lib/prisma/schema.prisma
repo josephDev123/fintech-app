@@ -12,11 +12,54 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Currency {
+  NGN
+  USD
+}
 
+enum KycStatus {
+  PENDING
+  VERIFIED
+  FAILED
+}
 
-model User { 
-  id    Int     @id @default(autoincrement()) 
-  email String  @unique
-  name  String?
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  name      String
+  wallets    Wallet[]
+  kyc        Kyc?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-} 
+  @@map("users")
+}
+
+model Wallet {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  currency  Currency
+  balance   BigInt   @default(0) @db.BigInt
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, currency], map: "wallet_user_id_currency_key")
+  @@index([userId], map: "wallet_user_id_idx")
+  @@map("wallets")
+}
+
+model Kyc {
+  id           String    @id @default(uuid()) @db.Uuid
+  userId       String    @unique @map("user_id") @db.Uuid
+  status       KycStatus @default(PENDING)
+  submittedData Json?    @map("submitted_data")
+  reviewNote   String?   @map("review_note")
+  reviewedAt   DateTime? @map("reviewed_at") @db.Timestamptz(6)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "kyc_user_id_idx")
+  @@map("kycs")
+}
