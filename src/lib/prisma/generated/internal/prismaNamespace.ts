@@ -397,9 +397,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  Kyc: 'Kyc',
   User: 'User',
-  Wallet: 'Wallet',
-  Kyc: 'Kyc'
+  Wallet: 'Wallet'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -415,10 +415,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "wallet" | "kyc"
+    modelProps: "kyc" | "user" | "wallet"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    Kyc: {
+      payload: Prisma.$KycPayload<ExtArgs>
+      fields: Prisma.KycFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.KycFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.KycFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        findFirst: {
+          args: Prisma.KycFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.KycFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        findMany: {
+          args: Prisma.KycFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
+        }
+        create: {
+          args: Prisma.KycCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        createMany: {
+          args: Prisma.KycCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.KycCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
+        }
+        delete: {
+          args: Prisma.KycDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        update: {
+          args: Prisma.KycUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        deleteMany: {
+          args: Prisma.KycDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.KycUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.KycUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
+        }
+        upsert: {
+          args: Prisma.KycUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
+        }
+        aggregate: {
+          args: Prisma.KycAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateKyc>
+        }
+        groupBy: {
+          args: Prisma.KycGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KycGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.KycCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.KycCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -567,80 +641,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Kyc: {
-      payload: Prisma.$KycPayload<ExtArgs>
-      fields: Prisma.KycFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.KycFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.KycFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        findFirst: {
-          args: Prisma.KycFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.KycFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        findMany: {
-          args: Prisma.KycFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
-        }
-        create: {
-          args: Prisma.KycCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        createMany: {
-          args: Prisma.KycCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.KycCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
-        }
-        delete: {
-          args: Prisma.KycDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        update: {
-          args: Prisma.KycUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        deleteMany: {
-          args: Prisma.KycDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.KycUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.KycUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>[]
-        }
-        upsert: {
-          args: Prisma.KycUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KycPayload>
-        }
-        aggregate: {
-          args: Prisma.KycAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateKyc>
-        }
-        groupBy: {
-          args: Prisma.KycGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KycGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.KycCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KycCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -680,6 +680,20 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const KycScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  submittedData: 'submittedData',
+  reviewNote: 'reviewNote',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -701,20 +715,6 @@ export const WalletScalarFieldEnum = {
 } as const
 
 export type WalletScalarFieldEnum = (typeof WalletScalarFieldEnum)[keyof typeof WalletScalarFieldEnum]
-
-
-export const KycScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  status: 'status',
-  submittedData: 'submittedData',
-  reviewNote: 'reviewNote',
-  reviewedAt: 'reviewedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -779,6 +779,34 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'KycStatus'
+ */
+export type EnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'KycStatus[]'
+ */
+export type ListEnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -817,34 +845,6 @@ export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'BigInt[]'
  */
 export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
-
-/**
- * Reference to a field of type 'KycStatus'
- */
-export type EnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycStatus'>
-    
-
-
-/**
- * Reference to a field of type 'KycStatus[]'
- */
-export type ListEnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -1026,9 +1026,9 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
+  kyc?: Prisma.KycOmit
   user?: Prisma.UserOmit
   wallet?: Prisma.WalletOmit
-  kyc?: Prisma.KycOmit
 }
 
 /* Types for Logging */

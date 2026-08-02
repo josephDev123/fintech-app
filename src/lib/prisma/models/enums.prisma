@@ -1,0 +1,10 @@
+enum Currency {
+  NGN
+  USD
+}
+
+enum KycStatus {
+  PENDING
+  VERIFIED
+  FAILED
+}

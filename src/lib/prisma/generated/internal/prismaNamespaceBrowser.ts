@@ -51,9 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Kyc: 'Kyc',
   User: 'User',
-  Wallet: 'Wallet',
-  Kyc: 'Kyc'
+  Wallet: 'Wallet'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,6 +70,20 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const KycScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  submittedData: 'submittedData',
+  reviewNote: 'reviewNote',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -93,20 +107,6 @@ export const WalletScalarFieldEnum = {
 } as const
 
 export type WalletScalarFieldEnum = (typeof WalletScalarFieldEnum)[keyof typeof WalletScalarFieldEnum]
-
-
-export const KycScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  status: 'status',
-  submittedData: 'submittedData',
-  reviewNote: 'reviewNote',
-  reviewedAt: 'reviewedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
 
 
 export const SortOrder = {

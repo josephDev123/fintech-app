@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
+ * Model Kyc
+ * 
+ */
+export type Kyc = Prisma.KycModel
+/**
  * Model User
  * 
  */
@@ -27,8 +32,3 @@ export type User = Prisma.UserModel
  * 
  */
 export type Wallet = Prisma.WalletModel
-/**
- * Model Kyc
- * 
- */
-export type Kyc = Prisma.KycModel

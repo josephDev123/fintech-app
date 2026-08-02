@@ -336,11 +336,6 @@ export type KycUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type KycNullableScalarRelationFilter = {
-  is?: Prisma.KycWhereInput | null
-  isNot?: Prisma.KycWhereInput | null
-}
-
 export type KycCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -370,6 +365,31 @@ export type KycMinOrderByAggregateInput = {
   reviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type KycNullableScalarRelationFilter = {
+  is?: Prisma.KycWhereInput | null
+  isNot?: Prisma.KycWhereInput | null
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type EnumKycStatusFieldUpdateOperationsInput = {
+  set?: $Enums.KycStatus
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type KycCreateNestedOneWithoutUserInput = {
@@ -402,18 +422,6 @@ export type KycUncheckedUpdateOneWithoutUserNestedInput = {
   delete?: Prisma.KycWhereInput | boolean
   connect?: Prisma.KycWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.KycUpdateToOneWithWhereWithoutUserInput, Prisma.KycUpdateWithoutUserInput>, Prisma.KycUncheckedUpdateWithoutUserInput>
-}
-
-export type EnumKycStatusFieldUpdateOperationsInput = {
-  set?: $Enums.KycStatus
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
 }
 
 export type KycCreateWithoutUserInput = {

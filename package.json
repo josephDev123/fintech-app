@@ -20,7 +20,7 @@
     "test:debug": "node --inspect-brk --experimental-vm-modules -r tsconfig-paths/register node_modules/jest/bin/jest.js --runInBand",
     "test:e2e": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./test/jest-e2e.json",
     "prisma": {
-      "schema": "src/lib/prisma/schema.prisma"
+      "schema": "src/lib/prisma"
     }
   },
   "dependencies": {
