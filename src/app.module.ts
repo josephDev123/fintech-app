@@ -7,6 +7,7 @@ import { PrismaModule } from './lib/prisma/prisma.module.js';
 import { Envalidate } from './config/validate-env.js';
 import { KycModule } from './module/Kyc/kyc.module.js';
 import { UserModule } from './module/User/user.module.js';
+import { WalletModule } from './module/Wallet/wallet.module.js';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './module/User/user.module.js';
     KycModule,
     UserModule,
     AuthModule,
+    WalletModule,
   ],
   controllers: [AppController],
   providers: [AppService],

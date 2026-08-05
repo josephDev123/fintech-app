@@ -12,3 +12,4 @@ model Kyc {
   @@index([userId], map: "kyc_user_id_idx")
   @@map("kycs")
 }
+

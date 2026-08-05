@@ -12,7 +12,10 @@ import { ZodValidationPipe } from '../../shared/pipes/zod-validation.pipe.js';
 import { KycService } from './KycService.js';
 import type { ReviewKycDto } from './dto/review-kyc.dto.js';
 import type { SubmitKycDto } from './dto/submit-kyc.dto.js';
-import { reviewKycSchema, submitKycSchema } from './validation/kyc.validation.js';
+import {
+  reviewKycSchema,
+  submitKycSchema,
+} from './validation/kyc.validation.js';
 
 @Controller('api/v1/kyc')
 export class KycController {
@@ -20,7 +23,7 @@ export class KycController {
 
   @Post(':userId')
   async submit(
-    @Param('userId', new ParseUUIDPipe()) userId: string,
+    @Param('userId', ParseUUIDPipe) userId: string,
     @Body(new ZodValidationPipe(submitKycSchema)) body: SubmitKycDto,
   ) {
     const kyc = await this.kycService.submit(userId, body);
@@ -29,7 +32,7 @@ export class KycController {
   }
 
   @Get(':userId')
-  async get(@Param('userId', new ParseUUIDPipe()) userId: string) {
+  async get(@Param('userId', ParseUUIDPipe) userId: string) {
     const kyc = await this.kycService.getByUserId(userId);
 
     return successResponse('KYC record fetched successfully', kyc);

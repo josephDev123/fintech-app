@@ -1,3 +1,3 @@
-import type { CreateUserInput } from '../validation/create-user.validation.js';
+import { CreateUserInput } from '../schema/createUserSchema.js';
 
 export type CreateUserDto = CreateUserInput;

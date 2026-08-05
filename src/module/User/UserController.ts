@@ -10,7 +10,7 @@ import { successResponse } from '../../shared/http/api-response.js';
 import { ZodValidationPipe } from '../../shared/pipes/zod-validation.pipe.js';
 import { UserService } from './UserService.js';
 import type { CreateUserDto } from './dto/create-user.dto.js';
-import { createUserSchema } from './validation/create-user.validation.js';
+import { createUserSchema } from './schema/createUserSchema.js';
 
 @Controller('api/v1/users')
 export class UserController {
@@ -26,7 +26,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async getProfile(@Param('id', new ParseUUIDPipe()) id: string) {
+  async getProfile(@Param('id', ParseUUIDPipe) id: string) {
     const user = await this.userService.getProfile(id);
 
     return successResponse('User profile fetched successfully', user);

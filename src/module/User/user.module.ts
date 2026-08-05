@@ -3,11 +3,12 @@ import { KycModule } from '../Kyc/kyc.module.js';
 import { UserController } from './UserController.js';
 import { UserRepository } from './UserRepository.js';
 import { UserService } from './UserService.js';
+import { WalletRepository } from '../Wallet/walletRepository.js';
 
 @Module({
   imports: [KycModule],
   controllers: [UserController],
-  providers: [UserService, UserRepository],
+  providers: [UserService, UserRepository, WalletRepository],
   exports: [UserService, UserRepository],
 })
 export class UserModule {}
