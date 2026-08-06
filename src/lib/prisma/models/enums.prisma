@@ -8,3 +8,13 @@ enum KycStatus {
   VERIFIED
   FAILED
 }
+
+
+enum KycDocumentType {
+  NIN
+  PASSPORT
+  BVN
+  DRIVERS_LICENSE
+  VOTERS_CARD
+  NATIONAL_ID_CARD
+}

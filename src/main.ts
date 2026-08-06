@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { ZodValidationPipe } from './shared/pipes/zod-validation.pipe.js';
+import { setupSwagger } from './docs/swagger.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.useGlobalPipes(new ZodValidationPipe())
+  setupSwagger(app);
   await app.listen(process.env.PORT ?? 5000);
 }
 bootstrap();
