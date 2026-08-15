@@ -683,6 +683,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const KycScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  documentType: 'documentType',
   status: 'status',
   submittedData: 'submittedData',
   reviewNote: 'reviewNote',
@@ -698,6 +699,7 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -775,6 +777,20 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'KycDocumentType'
+ */
+export type EnumKycDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycDocumentType'>
+    
+
+
+/**
+ * Reference to a field of type 'KycDocumentType[]'
+ */
+export type ListEnumKycDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycDocumentType[]'>
     
 
 

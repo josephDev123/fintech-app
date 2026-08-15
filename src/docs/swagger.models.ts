@@ -2,13 +2,6 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { KycStatus } from '../lib/prisma/generated/enums.js';
 import { SUPPORTED_CURRENCIES } from '../shared/constants/currencies.js';
 
-export class AuthLoginDataDto {
-  @ApiProperty({
-    example: 'Login successful',
-  })
-  message!: string;
-}
-
 export class AuthLoginResponseDto {
   @ApiProperty({
     example: true,
@@ -21,9 +14,22 @@ export class AuthLoginResponseDto {
   message!: string;
 
   @ApiProperty({
-    type: () => AuthLoginDataDto,
+    type: () => UserProfileDto,
   })
-  data!: AuthLoginDataDto;
+  data!: UserProfileDto;
+}
+
+export class AuthLoginRequestDto {
+  @ApiProperty({
+    example: 'jane.doe@example.com',
+  })
+  email!: string;
+
+  @ApiProperty({
+    example: 'StrongPassword123!',
+    minLength: 8,
+  })
+  password!: string;
 }
 
 export class CreateUserRequestDto {
@@ -36,6 +42,12 @@ export class CreateUserRequestDto {
     example: 'Jane Doe',
   })
   name!: string;
+
+  @ApiProperty({
+    example: 'StrongPassword123!',
+    minLength: 8,
+  })
+  password!: string;
 }
 
 export class WalletDto {

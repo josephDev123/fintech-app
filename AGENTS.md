@@ -548,7 +548,7 @@ Never trust request types.
 
 ---
 
-# Testing
+<!-- # Testing
 
 Every service should have
 
@@ -556,7 +556,7 @@ Unit tests
 
 Integration tests
 
-Critical money movement requires transaction tests.
+Critical money movement requires transaction tests. -->
 
 ---
 

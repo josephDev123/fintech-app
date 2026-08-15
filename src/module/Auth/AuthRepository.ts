@@ -1,20 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma, PrismaClient } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
+
+type DatabaseClient = PrismaService | PrismaClient | Prisma.TransactionClient;
 
 @Injectable()
 export class AuthRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create() {
-    return await this.prisma.user.create({
-      data: {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
+  findByEmail(email: string, database: DatabaseClient = this.prisma) {
+    return database.user.findUnique({
+      where: {
+        email,
+      },
+      include: {
+        wallets: true,
+        kyc: true,
       },
     });
-  }
-
-  find() {
-    return 'Hello greeting from AuthRepository!';
   }
 }

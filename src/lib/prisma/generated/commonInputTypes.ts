@@ -26,6 +26,13 @@ export type UuidFilter<$PrismaModel = never> = {
   not?: Prisma.NestedUuidFilter<$PrismaModel> | string
 }
 
+export type EnumKycDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.KycDocumentType | Prisma.EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel> | $Enums.KycDocumentType
+}
+
 export type EnumKycStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.KycStatus | Prisma.EnumKycStatusFieldRefInput<$PrismaModel>
   in?: $Enums.KycStatus[] | Prisma.ListEnumKycStatusFieldRefInput<$PrismaModel>
@@ -112,6 +119,16 @@ export type UuidWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type EnumKycDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.KycDocumentType | Prisma.EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.KycDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel>
 }
 
 export type EnumKycStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -285,6 +302,13 @@ export type NestedUuidFilter<$PrismaModel = never> = {
   not?: Prisma.NestedUuidFilter<$PrismaModel> | string
 }
 
+export type NestedEnumKycDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.KycDocumentType | Prisma.EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel> | $Enums.KycDocumentType
+}
+
 export type NestedEnumKycStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.KycStatus | Prisma.EnumKycStatusFieldRefInput<$PrismaModel>
   in?: $Enums.KycStatus[] | Prisma.ListEnumKycStatusFieldRefInput<$PrismaModel>
@@ -365,6 +389,16 @@ export type NestedStringFilter<$PrismaModel = never> = {
   startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>
   endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
+}
+
+export type NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.KycDocumentType | Prisma.EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.KycDocumentType[] | Prisma.ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.KycDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumKycDocumentTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumKycStatusWithAggregatesFilter<$PrismaModel = never> = {

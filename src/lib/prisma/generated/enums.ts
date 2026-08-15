@@ -19,8 +19,21 @@ export type Currency = (typeof Currency)[keyof typeof Currency]
 
 export const KycStatus = {
   PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
   VERIFIED: 'VERIFIED',
   FAILED: 'FAILED'
 } as const
 
 export type KycStatus = (typeof KycStatus)[keyof typeof KycStatus]
+
+
+export const KycDocumentType = {
+  NIN: 'NIN',
+  PASSPORT: 'PASSPORT',
+  BVN: 'BVN',
+  DRIVERS_LICENSE: 'DRIVERS_LICENSE',
+  VOTERS_CARD: 'VOTERS_CARD',
+  NATIONAL_ID_CARD: 'NATIONAL_ID_CARD'
+} as const
+
+export type KycDocumentType = (typeof KycDocumentType)[keyof typeof KycDocumentType]

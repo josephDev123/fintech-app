@@ -12,6 +12,7 @@ import {
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { SUPPORTED_CURRENCIES } from '../../shared/constants/currencies.js';
 import { errorResponse } from '../../shared/http/api-response.js';
+import { hashPassword } from '../../shared/lib/password.js';
 import { KycRepository } from '../Kyc/KycRepository.js';
 import { mapUserProfile, type UserProfileView } from './mappers/user.mapper.js';
 import { UserRepository } from './UserRepository.js';
@@ -33,6 +34,8 @@ export class UserService {
 
   async register(input: CreateUserDto): Promise<UserProfileView> {
     try {
+      const passwordHash = await hashPassword(input.password);
+
       const result = await this.prisma.$transaction(async (database) => {
         const existingUser = await this.userRepository.findByEmail(
           input.email,
@@ -50,6 +53,7 @@ export class UserService {
         const user = await this.userRepository.createUser(database, {
           email: input.email,
           name: input.name,
+          passwordHash,
         });
 
         const kyc = await this.kycRepository.createPending(database, user.id);

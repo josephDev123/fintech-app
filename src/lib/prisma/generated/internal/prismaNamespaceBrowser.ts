@@ -75,6 +75,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const KycScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  documentType: 'documentType',
   status: 'status',
   submittedData: 'submittedData',
   reviewNote: 'reviewNote',
@@ -90,6 +91,7 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
