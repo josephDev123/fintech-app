@@ -8,6 +8,9 @@ import { Envalidate } from './config/validate-env.js';
 import { KycModule } from './module/Kyc/kyc.module.js';
 import { UserModule } from './module/User/user.module.js';
 import { WalletModule } from './module/Wallet/wallet.module.js';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js';
 
 @Module({
   imports: [
@@ -16,6 +19,21 @@ import { WalletModule } from './module/Wallet/wallet.module.js';
       envFilePath: '.env',
       validate: Envalidate,
     }),
+
+    ClientsModule.register([
+      {
+        name: 'MATH_SERVICE',
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://localhost:5672'],
+          queue: 'cats_queue',
+          queueOptions: {
+            durable: false,
+          },
+        },
+      },
+    ]),
+
     PrismaModule,
     KycModule,
     UserModule,
@@ -23,6 +41,12 @@ import { WalletModule } from './module/Wallet/wallet.module.js';
     WalletModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionHandler,
+    },
+  ],
 })
 export class AppModule {}
