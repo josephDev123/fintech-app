@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type Kyc = Prisma.KycModel
 /**
+ * Model Profile
+ * 
+ */
+export type Profile = Prisma.ProfileModel
+/**
  * Model User
  * 
  */

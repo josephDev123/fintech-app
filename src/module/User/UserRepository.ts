@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import {
   Prisma,
+  type Kyc,
   PrismaClient,
   Wallet,
 } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { type SupportedCurrency } from '../../shared/constants/currencies.js';
 import { WalletRepository } from '../Wallet/walletRepository.js';
-import { CreateUserInput } from './schema/createUserSchema.js';
+import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
+import type { UserRecord } from './mappers/user.mapper.js';
 
 type DatabaseClient = PrismaService | PrismaClient | Prisma.TransactionClient;
+
+type CreateUserInput = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  passwordHash: string;
+};
 
 @Injectable()
 export class UserRepository {
@@ -34,22 +44,28 @@ export class UserRepository {
       include: {
         wallets: true,
         kyc: true,
-      },
-    });
+        profile: true,
+      } as never,
+    }) as unknown as Promise<
+      | (UserRecord & {
+          wallets: Wallet[];
+          kyc: Kyc | null;
+          profile: ProfileRecord | null;
+        })
+      | null
+    >;
   }
 
-  createUser(
-    database: DatabaseClient,
-    // data: {
-    //   email: string;
-    //   name: string;
-    //   passwordHash: string;
-    // },
-    data: CreateUserInput,
-  ) {
+  createUser(database: DatabaseClient, data: CreateUserInput) {
     return database.user.create({
-      data,
-    });
+      data: {
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        middleName: data.middleName,
+        passwordHash: data.passwordHash,
+      } as never,
+    }) as unknown as Promise<UserRecord>;
   }
 
   createWallets(database: DatabaseClient, userId: string) {

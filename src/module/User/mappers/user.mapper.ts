@@ -1,5 +1,10 @@
 import type { Kyc, User, Wallet } from '../../../lib/prisma/generated/client.js';
 import type { SupportedCurrency } from '../../../shared/constants/currencies.js';
+import {
+  mapProfile,
+  type ProfileRecord,
+  type ProfileView,
+} from '../../Profile/mappers/profile.mapper.js';
 
 export interface WalletView {
   id: string;
@@ -23,7 +28,10 @@ export interface KycView {
 export interface UserView {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  emailVerifiedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +39,7 @@ export interface UserView {
 export interface UserProfileView extends UserView {
   wallets: WalletView[];
   kyc: KycView | null;
+  profile: ProfileView | null;
 }
 
 export function mapWallet(wallet: Wallet): WalletView {
@@ -60,14 +69,35 @@ export function mapKyc(kyc: Kyc | null): KycView | null {
   };
 }
 
-export function mapUserProfile(user: User & { wallets: Wallet[]; kyc: Kyc | null }): UserProfileView {
+export type UserRecord = {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  emailVerifiedAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type UserWithRelations = UserRecord & {
+  wallets: Wallet[];
+  kyc: Kyc | null;
+  profile?: ProfileRecord | null;
+};
+
+export function mapUserProfile(user: UserWithRelations): UserProfileView {
   return {
     id: user.id,
     email: user.email,
-    name: user.name,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    middleName: user.middleName,
+    emailVerifiedAt: user.emailVerifiedAt,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
     wallets: user.wallets.map(mapWallet),
     kyc: mapKyc(user.kyc),
+    profile: mapProfile(user.profile ?? null),
   };
 }

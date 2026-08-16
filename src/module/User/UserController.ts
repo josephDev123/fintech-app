@@ -1,18 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiCookieAuth,
   ApiOkResponse,
   ApiOperation,
-  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { successResponse } from '../../shared/http/api-response.js';
@@ -24,13 +16,15 @@ import {
   CreateUserRequestDto,
   UserProfileResponseDto,
 } from '../../docs/swagger.models.js';
-import { AuthGuard } from '../../shared/guards/auth.guard.js';
+import { Public } from '../../shared/decorators/auth.public.decorator.js';
+import { type Request } from 'express';
 
 @ApiTags('Users')
 @Controller('api/v1/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @Post()
   @ApiOperation({ summary: 'Register a new user' })
   @ApiBody({
@@ -47,18 +41,15 @@ export class UserController {
     return successResponse('User registered successfully', user);
   }
 
-  // @UseGuards(AuthGuard)
-  @Get(':id')
-  @ApiOperation({ summary: 'Fetch a user profile' })
-  @ApiParam({
-    name: 'id',
-    description: 'User identifier',
-    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
-  })
+  @Get()
+  @ApiCookieAuth('cookieAuth')
+  @ApiOperation({ summary: 'Fetch the authenticated user profile' })
   @ApiOkResponse({
     type: UserProfileResponseDto,
   })
-  async getProfile(@Param('id', ParseUUIDPipe) id: string) {
+  async getProfile(@Req() req: Request) {
+    const id = req.user?.sub;
+    console.log(id);
     const user = await this.userService.getProfile(id);
 
     return successResponse('User profile fetched successfully', user);

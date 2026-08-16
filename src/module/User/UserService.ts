@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   Prisma,
@@ -14,12 +15,19 @@ import { SUPPORTED_CURRENCIES } from '../../shared/constants/currencies.js';
 import { errorResponse } from '../../shared/http/api-response.js';
 import { hashPassword } from '../../shared/lib/password.js';
 import { KycRepository } from '../Kyc/KycRepository.js';
-import { mapUserProfile, type UserProfileView } from './mappers/user.mapper.js';
+import { ProfileRepository } from '../Profile/profile.repository.js';
+import {
+  mapUserProfile,
+  type UserProfileView,
+  type UserRecord,
+} from './mappers/user.mapper.js';
 import { UserRepository } from './UserRepository.js';
 import type { CreateUserDto } from './dto/create-user.dto.js';
+import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
 
 type RegistrationResult = {
-  user: User;
+  user: UserRecord;
+  profile: ProfileRecord;
   kyc: Kyc;
   wallets: Wallet[];
 };
@@ -30,6 +38,7 @@ export class UserService {
     private readonly prisma: PrismaService,
     private readonly userRepository: UserRepository,
     private readonly kycRepository: KycRepository,
+    private readonly profileRepository: ProfileRepository,
   ) {}
 
   async register(input: CreateUserDto): Promise<UserProfileView> {
@@ -55,9 +64,13 @@ export class UserService {
           firstName: input.firstName,
           lastName: input.lastName,
           middleName: input.middleName,
-          passwordHash: input.password,
+          passwordHash,
         });
 
+        const profile = await this.profileRepository.createEmpty(
+          database,
+          user.id,
+        );
         const kyc = await this.kycRepository.createPending(database, user.id);
         const wallets = await this.userRepository.createWallets(
           database,
@@ -66,6 +79,7 @@ export class UserService {
 
         return {
           user,
+          profile,
           kyc,
           wallets,
         } satisfies RegistrationResult;
@@ -73,6 +87,7 @@ export class UserService {
 
       return mapUserProfile({
         ...result.user,
+        profile: result.profile,
         wallets: result.wallets,
         kyc: result.kyc,
       });
@@ -94,7 +109,12 @@ export class UserService {
     }
   }
 
-  async getProfile(id: string): Promise<UserProfileView> {
+  async getProfile(id: string | undefined): Promise<UserProfileView> {
+    if (!id) {
+      throw new UnauthorizedException(
+        errorResponse('User authentication is required', 'UNAUTHORIZED'),
+      );
+    }
     const user = await this.userRepository.findById(this.prisma, id);
 
     if (!user) {

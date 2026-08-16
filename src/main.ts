@@ -12,7 +12,7 @@ async function bootstrap() {
       // json: true,
     }),
   });
-
+  app.enableCors();
   app.use(cookieParser());
 
   // Connect RabbitMQ

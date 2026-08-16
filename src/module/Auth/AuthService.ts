@@ -6,7 +6,9 @@ import { verifyPassword } from '../../shared/lib/password.js';
 import { mapUserProfile, type UserProfileView } from '../User/mappers/user.mapper.js';
 import { AuthRepository } from './AuthRepository.js';
 import type { LoginDto } from './dto/login.dto.js';
-import type { Kyc, User, Wallet } from '../../lib/prisma/generated/client.js';
+import type { Kyc, Wallet } from '../../lib/prisma/generated/client.js';
+import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
+import type { UserRecord } from '../User/mappers/user.mapper.js';
 
 export type JwtTokenPair = {
   accessToken: string;
@@ -83,7 +85,12 @@ export class AuthService {
 
     return {
       user: mapUserProfile(
-        user as User & { wallets: Wallet[]; kyc: Kyc | null },
+        user as UserRecord & {
+          passwordHash: string | null;
+          wallets: Wallet[];
+          kyc: Kyc | null;
+          profile: ProfileRecord | null;
+        },
       ),
       tokens: {
         accessToken,

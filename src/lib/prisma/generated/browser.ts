@@ -23,6 +23,11 @@ export * from './enums.js';
  */
 export type Kyc = Prisma.KycModel
 /**
+ * Model Profile
+ * 
+ */
+export type Profile = Prisma.ProfileModel
+/**
  * Model User
  * 
  */

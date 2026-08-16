@@ -1,6 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient } from '../../lib/prisma/generated/client.js';
+import {
+  Prisma,
+  PrismaClient,
+  type Kyc,
+  type Wallet,
+} from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
+import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
+import type { UserRecord } from '../User/mappers/user.mapper.js';
 
 type DatabaseClient = PrismaService | PrismaClient | Prisma.TransactionClient;
 
@@ -16,7 +23,16 @@ export class AuthRepository {
       include: {
         wallets: true,
         kyc: true,
-      },
-    });
+        profile: true,
+      } as never,
+    }) as unknown as Promise<
+      | (UserRecord & {
+          passwordHash: string | null;
+          wallets: Wallet[];
+          kyc: Kyc | null;
+          profile: ProfileRecord | null;
+        })
+      | null
+    >;
   }
 }

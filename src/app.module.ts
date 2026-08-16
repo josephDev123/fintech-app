@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './lib/prisma/prisma.module.js';
 import { Envalidate } from './config/validate-env.js';
 import { KycModule } from './module/Kyc/kyc.module.js';
+import { ProfileModule } from './module/Profile/profile.module.js';
 import { UserModule } from './module/User/user.module.js';
 import { WalletModule } from './module/Wallet/wallet.module.js';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -37,6 +38,7 @@ import { AuthGuard } from './shared/guards/auth.guard.js';
 
     PrismaModule,
     KycModule,
+    ProfileModule,
     UserModule,
     AuthModule,
     WalletModule,

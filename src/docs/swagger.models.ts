@@ -2,21 +2,92 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { KycStatus } from '../lib/prisma/generated/enums.js';
 import { SUPPORTED_CURRENCIES } from '../shared/constants/currencies.js';
 
-export class UserProfileDto {
+const PROFILE_GENDERS = [
+  'MALE',
+  'FEMALE',
+  'OTHER',
+  'PREFER_NOT_TO_SAY',
+] as const;
+
+export class ProfileDto {
   @ApiProperty({
-    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
+    example: 'c2d1f7f5-7f87-45ed-86d1-4f3f6a5c4e01',
   })
   id!: string;
 
   @ApiProperty({
-    example: 'jane.doe@example.com',
+    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
   })
-  email!: string;
+  userId!: string;
 
-  @ApiProperty({
-    example: 'Jane Doe',
+  @ApiPropertyOptional({
+    example: '+2348012345678',
+    nullable: true,
   })
-  name!: string;
+  phoneNumber!: string | null;
+
+  @ApiPropertyOptional({
+    example: '2026-08-06T11:15:00.000Z',
+    format: 'date-time',
+    nullable: true,
+  })
+  phoneVerifiedAt!: string | null;
+
+  @ApiPropertyOptional({
+    example: '1994-05-20',
+    format: 'date',
+    nullable: true,
+  })
+  dateOfBirth!: string | null;
+
+  @ApiPropertyOptional({
+    enum: PROFILE_GENDERS,
+    example: 'PREFER_NOT_TO_SAY',
+    nullable: true,
+  })
+  gender!: (typeof PROFILE_GENDERS)[number] | null;
+
+  @ApiPropertyOptional({
+    example: 'https://cdn.example.com/avatars/user-123.png',
+    nullable: true,
+  })
+  avatarUrl!: string | null;
+
+  @ApiPropertyOptional({
+    example: '14 Admiralty Way',
+    nullable: true,
+  })
+  addressLine1!: string | null;
+
+  @ApiPropertyOptional({
+    example: 'Lekki Phase 1',
+    nullable: true,
+  })
+  addressLine2!: string | null;
+
+  @ApiPropertyOptional({
+    example: 'Lagos',
+    nullable: true,
+  })
+  city!: string | null;
+
+  @ApiPropertyOptional({
+    example: 'Lagos',
+    nullable: true,
+  })
+  state!: string | null;
+
+  @ApiPropertyOptional({
+    example: 'NG',
+    nullable: true,
+  })
+  country!: string | null;
+
+  @ApiPropertyOptional({
+    example: '100001',
+    nullable: true,
+  })
+  postalCode!: string | null;
 
   @ApiProperty({
     example: '2026-08-06T11:00:00.000Z',
@@ -29,6 +100,58 @@ export class UserProfileDto {
     format: 'date-time',
   })
   updatedAt!: string;
+}
+
+export class UserProfileDto {
+  @ApiProperty({
+    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
+  })
+  id!: string;
+
+  @ApiProperty({
+    example: 'jane.doe@example.com',
+  })
+  email!: string;
+
+  @ApiProperty({
+    example: 'Jane',
+  })
+  firstName!: string;
+
+  @ApiProperty({
+    example: 'Doe',
+  })
+  lastName!: string;
+
+  @ApiProperty({
+    example: 'Mary',
+  })
+  middleName!: string;
+
+  @ApiPropertyOptional({
+    example: '2026-08-06T11:00:00.000Z',
+    format: 'date-time',
+    nullable: true,
+  })
+  emailVerifiedAt!: string | null;
+
+  @ApiProperty({
+    example: '2026-08-06T11:00:00.000Z',
+    format: 'date-time',
+  })
+  createdAt!: string;
+
+  @ApiProperty({
+    example: '2026-08-06T11:00:00.000Z',
+    format: 'date-time',
+  })
+  updatedAt!: string;
+
+  @ApiProperty({
+    type: () => ProfileDto,
+    nullable: true,
+  })
+  profile!: ProfileDto | null;
 
   @ApiProperty({
     type: () => [WalletDto],
@@ -58,6 +181,23 @@ export class AuthLoginResponseDto {
   data!: UserProfileDto;
 }
 
+export class ProfileResponseDto {
+  @ApiProperty({
+    example: true,
+  })
+  success!: true;
+
+  @ApiProperty({
+    example: 'User profile fetched successfully',
+  })
+  message!: string;
+
+  @ApiProperty({
+    type: () => ProfileDto,
+  })
+  data!: ProfileDto;
+}
+
 export class AuthLoginRequestDto {
   @ApiProperty({
     example: 'jane.doe@example.com',
@@ -80,7 +220,17 @@ export class CreateUserRequestDto {
   @ApiProperty({
     example: 'Jane Doe',
   })
-  name!: string;
+  firstName!: string;
+
+  @ApiProperty({
+    example: 'Doe',
+  })
+  lastName!: string;
+
+  @ApiProperty({
+    example: 'Doe',
+  })
+  middleName!: string;
 
   @ApiProperty({
     example: 'StrongPassword123!',

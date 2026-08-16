@@ -8,13 +8,19 @@ export function setupSwagger(app: INestApplication) {
     .setTitle('Fintech Platform API')
     .setDescription('Swagger documentation for the fintech backend API')
     .setVersion('1.0.0')
+    .addCookieAuth('access_token', undefined, 'cookieAuth')
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {
     deepScanRoutes: true,
   });
 
-  SwaggerModule.setup(SWAGGER_UI_PATH, app, document, {});
+  SwaggerModule.setup(SWAGGER_UI_PATH, app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+      withCredentials: true,
+    },
+  });
 
   return document;
 }
