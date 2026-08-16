@@ -2,6 +2,45 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { KycStatus } from '../lib/prisma/generated/enums.js';
 import { SUPPORTED_CURRENCIES } from '../shared/constants/currencies.js';
 
+export class UserProfileDto {
+  @ApiProperty({
+    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
+  })
+  id!: string;
+
+  @ApiProperty({
+    example: 'jane.doe@example.com',
+  })
+  email!: string;
+
+  @ApiProperty({
+    example: 'Jane Doe',
+  })
+  name!: string;
+
+  @ApiProperty({
+    example: '2026-08-06T11:00:00.000Z',
+    format: 'date-time',
+  })
+  createdAt!: string;
+
+  @ApiProperty({
+    example: '2026-08-06T11:00:00.000Z',
+    format: 'date-time',
+  })
+  updatedAt!: string;
+
+  @ApiProperty({
+    type: () => [WalletDto],
+  })
+  wallets!: WalletDto[];
+
+  @ApiProperty({
+    type: () => KycDto,
+    nullable: true,
+  })
+  kyc!: KycDto | null;
+}
 export class AuthLoginResponseDto {
   @ApiProperty({
     example: true,
@@ -135,46 +174,6 @@ export class KycDto {
   updatedAt!: string;
 }
 
-export class UserProfileDto {
-  @ApiProperty({
-    example: '4b0ebf08-1c4c-4a7d-8b0a-9f4d42c1f4bc',
-  })
-  id!: string;
-
-  @ApiProperty({
-    example: 'jane.doe@example.com',
-  })
-  email!: string;
-
-  @ApiProperty({
-    example: 'Jane Doe',
-  })
-  name!: string;
-
-  @ApiProperty({
-    example: '2026-08-06T11:00:00.000Z',
-    format: 'date-time',
-  })
-  createdAt!: string;
-
-  @ApiProperty({
-    example: '2026-08-06T11:00:00.000Z',
-    format: 'date-time',
-  })
-  updatedAt!: string;
-
-  @ApiProperty({
-    type: () => [WalletDto],
-  })
-  wallets!: WalletDto[];
-
-  @ApiProperty({
-    type: () => KycDto,
-    nullable: true,
-  })
-  kyc!: KycDto | null;
-}
-
 export class UserProfileResponseDto {
   @ApiProperty({
     example: true,
@@ -182,7 +181,7 @@ export class UserProfileResponseDto {
   success!: true;
 
   @ApiProperty({
-    example: 'User registered successfully',
+    example: 'User profile fetched successfully',
   })
   message!: string;
 

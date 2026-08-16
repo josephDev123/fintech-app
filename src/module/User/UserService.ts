@@ -52,8 +52,10 @@ export class UserService {
 
         const user = await this.userRepository.createUser(database, {
           email: input.email,
-          name: input.name,
-          passwordHash,
+          firstName: input.firstName,
+          lastName: input.lastName,
+          middleName: input.middleName,
+          passwordHash: input.password,
         });
 
         const kyc = await this.kycRepository.createPending(database, user.id);

@@ -5,6 +5,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -23,6 +24,7 @@ import {
   CreateUserRequestDto,
   UserProfileResponseDto,
 } from '../../docs/swagger.models.js';
+import { AuthGuard } from '../../shared/guards/auth.guard.js';
 
 @ApiTags('Users')
 @Controller('api/v1/users')
@@ -45,6 +47,7 @@ export class UserController {
     return successResponse('User registered successfully', user);
   }
 
+  // @UseGuards(AuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Fetch a user profile' })
   @ApiParam({

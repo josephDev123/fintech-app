@@ -9,8 +9,9 @@ import { KycModule } from './module/Kyc/kyc.module.js';
 import { UserModule } from './module/User/user.module.js';
 import { WalletModule } from './module/Wallet/wallet.module.js';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js';
+import { AuthGuard } from './shared/guards/auth.guard.js';
 
 @Module({
   imports: [
@@ -46,6 +47,10 @@ import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js
     {
       provide: APP_FILTER,
       useClass: HttpExceptionHandler,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })

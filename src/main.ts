@@ -4,13 +4,16 @@ import { ZodValidationPipe } from './shared/pipes/zod-validation.pipe.js';
 import { setupSwagger } from './docs/swagger.js';
 import { RmqEvents, RmqStatus, Transport } from '@nestjs/microservices';
 import { ConsoleLogger } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new ConsoleLogger({
-      json: true,
+      // json: true,
     }),
   });
+
+  app.use(cookieParser());
 
   // Connect RabbitMQ
   const server = app.connectMicroservice({
@@ -25,15 +28,15 @@ async function bootstrap() {
   });
 
   // Start RabbitMQ listener
-  await app.startAllMicroservices();
+  // await app.startAllMicroservices();
 
-  server.status.subscribe((status: unknown) => {
-    console.log('server status:', status);
-  });
+  // server.status.subscribe((status: unknown) => {
+  //   console.log('server status:', status);
+  // });
 
-  server.on<RmqEvents>('error', (err: any) => {
-    console.error(err);
-  });
+  // server.on<RmqEvents>('error', (err: any) => {
+  //   console.error(err);
+  // });
 
   setupSwagger(app);
 

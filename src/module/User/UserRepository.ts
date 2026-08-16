@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { type SupportedCurrency } from '../../shared/constants/currencies.js';
 import { WalletRepository } from '../Wallet/walletRepository.js';
+import { CreateUserInput } from './schema/createUserSchema.js';
 
 type DatabaseClient = PrismaService | PrismaClient | Prisma.TransactionClient;
 
@@ -39,11 +40,12 @@ export class UserRepository {
 
   createUser(
     database: DatabaseClient,
-    data: {
-      email: string;
-      name: string;
-      passwordHash: string;
-    },
+    // data: {
+    //   email: string;
+    //   name: string;
+    //   passwordHash: string;
+    // },
+    data: CreateUserInput,
   ) {
     return database.user.create({
       data,
