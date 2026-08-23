@@ -13,12 +13,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js';
 import { AuthGuard } from './shared/guards/auth.guard.js';
+import { getAppConfig } from './shared/lib/app-config.js';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      load: [getAppConfig],
+      // envFilePath: '.env',
       validate: Envalidate,
     }),
 

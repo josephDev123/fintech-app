@@ -1,9 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { errorResponse } from '../../shared/http/api-response.js';
-import { getAuthConfig } from '../../shared/lib/auth-config.js';
+import { getAppConfig } from '../../shared/lib/app-config.js';
 import { verifyPassword } from '../../shared/lib/password.js';
-import { mapUserProfile, type UserProfileView } from '../User/mappers/user.mapper.js';
+import {
+  mapUserProfile,
+  type UserProfileView,
+} from '../User/mappers/user.mapper.js';
 import { AuthRepository } from './AuthRepository.js';
 import type { LoginDto } from './dto/login.dto.js';
 import type { Kyc, Wallet } from '../../lib/prisma/generated/client.js';
@@ -50,12 +53,12 @@ export class AuthService {
       );
     }
 
-    const authConfig = getAuthConfig();
+    const authConfig = getAppConfig();
     const accessTokenExpiresIn = parseDurationToSeconds(
-      authConfig.accessTokenTtl,
+      authConfig.accessTokenTtl || '',
     );
     const refreshTokenExpiresIn = parseDurationToSeconds(
-      authConfig.refreshTokenTtl,
+      authConfig.refreshTokenTtl || '',
     );
 
     const [accessToken, refreshToken] = await Promise.all([

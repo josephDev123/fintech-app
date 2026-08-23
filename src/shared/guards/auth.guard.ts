@@ -9,7 +9,7 @@ import { Request } from 'express';
 import { JwtPayload } from '../types/auth.jwt.payload.js';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/auth.public.decorator.js';
-import { getAuthConfig } from '../lib/auth-config.js';
+import { getAppConfig } from '../lib/app-config.js';
 
 // declare global {
 //   namespace Express {
@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
     try {
       // 💡 Here the JWT secret key that's used for verifying the payload
       // is the key that was passed in the JwtModule
-      const authConfig = getAuthConfig();
+      const authConfig = getAppConfig();
       const payload = await this.jwtService.verifyAsync<JwtPayload>(
         access_token,
         { secret: authConfig.accessTokenSecret },
