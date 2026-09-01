@@ -24,12 +24,16 @@ import {
 import { UserRepository } from './UserRepository.js';
 import type { CreateUserDto } from './dto/create-user.dto.js';
 import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
+import { EmailVerificationService } from './email-verification/email-verification.service.js';
+import type { VerifyEmailDto } from './dto/verify-email.dto.js';
+import type { ResendVerificationDto } from './dto/resend-verification.dto.js';
 
 type RegistrationResult = {
   user: UserRecord;
   profile: ProfileRecord;
   kyc: Kyc;
   wallets: Wallet[];
+  verificationOtp: string;
 };
 
 @Injectable()
@@ -39,6 +43,7 @@ export class UserService {
     private readonly userRepository: UserRepository,
     private readonly kycRepository: KycRepository,
     private readonly profileRepository: ProfileRepository,
+    private readonly emailVerificationService: EmailVerificationService,
   ) {}
 
   async register(input: CreateUserDto): Promise<UserProfileView> {
@@ -76,14 +81,30 @@ export class UserService {
           database,
           user.id,
         );
+        const verificationOtp =
+          await this.emailVerificationService.createVerification(database, {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+          });
 
         return {
           user,
           profile,
           kyc,
           wallets,
+          verificationOtp,
         } satisfies RegistrationResult;
       });
+
+      await this.emailVerificationService.sendVerificationEmail(
+        {
+          id: result.user.id,
+          email: result.user.email,
+          firstName: result.user.firstName,
+        },
+        result.verificationOtp,
+      );
 
       return mapUserProfile({
         ...result.user,
@@ -107,6 +128,18 @@ export class UserService {
 
       throw error;
     }
+  }
+
+  async verifyEmail(input: VerifyEmailDto): Promise<UserProfileView> {
+    return this.emailVerificationService.verifyEmail(input);
+  }
+
+  async resendVerification(
+    input: ResendVerificationDto,
+  ): Promise<{ email: string }> {
+    return this.emailVerificationService.resendVerification({
+      email: input.email,
+    });
   }
 
   async getProfile(id: string | undefined): Promise<UserProfileView> {

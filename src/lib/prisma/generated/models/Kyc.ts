@@ -394,10 +394,6 @@ export type KycNullableScalarRelationFilter = {
   isNot?: Prisma.KycWhereInput | null
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type EnumKycDocumentTypeFieldUpdateOperationsInput = {
   set?: $Enums.KycDocumentType
 }
@@ -412,10 +408,6 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type KycCreateNestedOneWithoutUserInput = {

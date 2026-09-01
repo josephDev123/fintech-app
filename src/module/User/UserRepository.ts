@@ -76,6 +76,21 @@ export class UserRepository {
     return this.walletRepository.findWalletsByUserId(userId);
   }
 
+  markEmailVerified(
+    database: DatabaseClient,
+    userId: string,
+    emailVerifiedAt: Date,
+  ) {
+    return database.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        emailVerifiedAt,
+      } as never,
+    }) as unknown as Promise<UserRecord>;
+  }
+
   upsertWalletBalance(
     userId: string,
     currency: SupportedCurrency,

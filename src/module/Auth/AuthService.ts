@@ -53,6 +53,12 @@ export class AuthService {
       );
     }
 
+    if (!user.emailVerifiedAt) {
+      throw new UnauthorizedException(
+        errorResponse('Email address is not verified', 'EMAIL_NOT_VERIFIED'),
+      );
+    }
+
     const authConfig = getAppConfig();
     const accessTokenExpiresIn = parseDurationToSeconds(
       authConfig.accessTokenTtl || '',

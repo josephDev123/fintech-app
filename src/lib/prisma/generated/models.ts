@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/EmailVerification.js'
 export type * from './models/Kyc.js'
 export type * from './models/Profile.js'
 export type * from './models/User.js'

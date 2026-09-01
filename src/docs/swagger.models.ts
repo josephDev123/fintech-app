@@ -239,6 +239,49 @@ export class CreateUserRequestDto {
   password!: string;
 }
 
+export class VerifyEmailRequestDto {
+  @ApiProperty({
+    example: 'jane.doe@example.com',
+  })
+  email!: string;
+
+  @ApiProperty({
+    example: '123456',
+    minLength: 6,
+    maxLength: 6,
+  })
+  otp!: string;
+}
+
+export class ResendVerificationRequestDto {
+  @ApiProperty({
+    example: 'jane.doe@example.com',
+  })
+  email!: string;
+}
+
+export class VerificationEmailResponseDto {
+  @ApiProperty({
+    example: true,
+  })
+  success!: true;
+
+  @ApiProperty({
+    example: 'Verification email sent successfully',
+  })
+  message!: string;
+
+  @ApiProperty({
+    type: Object,
+    example: {
+      email: 'jane.doe@example.com',
+    },
+  })
+  data!: {
+    email: string;
+  };
+}
+
 export class WalletDto {
   @ApiProperty({
     example: 'b3f22c43-6f8d-4b7f-b3a9-6de7b3a2b6c1',
