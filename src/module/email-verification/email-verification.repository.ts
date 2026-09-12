@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, PrismaClient } from '../../../lib/prisma/generated/client.js';
-import { PrismaService } from '../../../lib/prisma/prisma.service.js';
+import { Prisma, PrismaClient } from '../../lib/prisma/generated/client.js';
+import { PrismaService } from '../../lib/prisma/prisma.service.js';
 
 type DatabaseClient = PrismaService | PrismaClient | Prisma.TransactionClient;
 

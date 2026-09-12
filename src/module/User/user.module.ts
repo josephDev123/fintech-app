@@ -5,8 +5,8 @@ import { UserController } from './UserController.js';
 import { UserRepository } from './UserRepository.js';
 import { UserService } from './UserService.js';
 import { WalletRepository } from '../Wallet/walletRepository.js';
-import { EmailVerificationRepository } from './email-verification/email-verification.repository.js';
-import { EmailVerificationService } from './email-verification/email-verification.service.js';
+import { EmailVerificationRepository } from '../email-verification/email-verification.repository.js';
+import { EmailVerificationService } from '../email-verification/email-verification.service.js';
 import { MailModule } from '../../shared/mail/mail.module.js';
 
 @Module({

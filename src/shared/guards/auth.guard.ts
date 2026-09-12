@@ -11,14 +11,6 @@ import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/auth.public.decorator.js';
 import { getAppConfig } from '../lib/app-config.js';
 
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       user?: JwtPayload;
-//     }
-//   }
-// }
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(

@@ -3,24 +3,24 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Prisma } from '../../../lib/prisma/generated/client.js';
-import { PrismaService } from '../../../lib/prisma/prisma.service.js';
-import { errorResponse } from '../../../shared/http/api-response.js';
+import { Prisma } from '../../lib/prisma/generated/client.js';
+import { PrismaService } from '../../lib/prisma/prisma.service.js';
+import { errorResponse } from '../../shared/http/api-response.js';
 import {
   EMAIL_VERIFICATION_MAX_ATTEMPTS,
   EMAIL_VERIFICATION_OTP_TTL_MINUTES,
   generateVerificationOtp,
   hashOtp,
   verifyOtp,
-} from '../../../shared/lib/otp.js';
-import { ResendMailService } from '../../../shared/mail/resend-mail.service.js';
-import { UserRepository } from '../UserRepository.js';
+} from '../../shared/lib/otp.js';
+import { ResendMailService } from '../../shared/mail/resend-mail.service.js';
+import { UserRepository } from '../User/UserRepository.js';
 import {
   mapUserProfile,
   type UserProfileView,
-} from '../mappers/user.mapper.js';
+} from '../User/mappers/user.mapper.js';
 import { EmailVerificationRepository } from './email-verification.repository.js';
-import type { VerifyEmailDto } from '../dto/verify-email.dto.js';
+import type { VerifyEmailDto } from '../User/dto/verify-email.dto.js';
 
 type VerificationIssuer = {
   id: string;

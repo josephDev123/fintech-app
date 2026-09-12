@@ -33,10 +33,10 @@ export class ResendMailService {
         firstName: input.firstName,
         otp: input.otp,
       }),
-      html: buildVerificationHtml({
-        firstName: input.firstName,
-        otp: input.otp,
-      }),
+      // html: buildVerificationHtml({
+      //   firstName: input.firstName,
+      //   otp: input.otp,
+      // }),
     });
 
     const { data, error } = response;

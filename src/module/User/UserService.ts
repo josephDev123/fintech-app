@@ -24,7 +24,7 @@ import {
 import { UserRepository } from './UserRepository.js';
 import type { CreateUserDto } from './dto/create-user.dto.js';
 import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
-import { EmailVerificationService } from './email-verification/email-verification.service.js';
+import { EmailVerificationService } from '../email-verification/email-verification.service.js';
 import type { VerifyEmailDto } from './dto/verify-email.dto.js';
 import type { ResendVerificationDto } from './dto/resend-verification.dto.js';
 
